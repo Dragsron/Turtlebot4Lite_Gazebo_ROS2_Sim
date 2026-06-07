@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<robot name="turtlebot4_lite" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <material name="black"><color rgba="0.1 0.1 0.1 1.0"/></material>
+  <material name="dark_grey"><color rgba="0.2 0.2 0.2 1.0"/></material>
+  <material name="blue"><color rgba="0.0 0.0 0.8 1.0"/></material>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://irobot_create_description/meshes/body_visual.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.04" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.17" length="0.08"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="3.0"/>
+      <origin xyz="-0.01 0 0.02" rpy="0 0 0"/>
+      <inertia ixx="0.023" ixy="0.0" ixz="0.0" iyy="0.023" iyz="0.0" izz="0.043"/>
+    </inertial>
+  </link>
+
+  <link name="base_footprint"></link>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <origin xyz="0 0.1165 0" rpy="-1.570796 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="left_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.03575" length="0.02"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.03575" length="0.02"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>1.0</mu2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.000067" ixy="0.0" ixz="0.0" iyy="0.000067" iyz="0.0" izz="0.00012"/>
+    </inertial>
+  </link>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin xyz="0 -0.1165 0" rpy="-1.570796 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="right_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.03575" length="0.02"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.03575" length="0.02"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>1.0</mu2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.000067" ixy="0.0" ixz="0.0" iyy="0.000067" iyz="0.0" izz="0.00012"/>
+    </inertial>
+  </link>
+
+  <joint name="front_caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child select="front_caster_wheel" link="front_caster_wheel"/>
+    <origin xyz="0.11 0 -0.01575" rpy="0 0 0"/>
+  </joint>
+
+  <link name="front_caster_wheel">
+    <visual>
+      <geometry><sphere radius="0.02"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry><sphere radius="0.02"/></geometry>
+    </collision>
+    <gazebo reference="front_caster_wheel">
+      <mu1>0.0</mu1>
+      <mu2>0.0</mu2>
+    </gazebo>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.000016" ixy="0.0" ixz="0.0" iyy="0.000016" iyz="0.0" izz="0.000016"/>
+    </inertial>
+  </link>
+
+  <joint name="rear_caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="rear_caster_wheel"/>
+    <origin xyz="-0.11 0 -0.01575" rpy="0 0 0"/>
+  </joint>
+
+  <link name="rear_caster_wheel">
+    <visual>
+      <geometry><sphere radius="0.02"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry><sphere radius="0.02"/></geometry>
+    </collision>
+    <gazebo reference="rear_caster_wheel">
+      <mu1>0.0</mu1>
+      <mu2>0.0</mu2>
+    </gazebo>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.000016" ixy="0.0" ixz="0.0" iyy="0.000016" iyz="0.0" izz="0.000016"/>
+    </inertial>
+  </link>
+
+  <joint name="oakd_camera_bracket_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="oakd_camera_bracket"/>
+    <origin xyz="-0.09 0 0.0291" rpy="0 0 0"/>
+  </joint>
+
+  <link name="oakd_camera_bracket">
+    <visual>
+      <geometry>
+        <mesh filename="package://turtlebot4_description/meshes/camera_bracket.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="0.033"/>
+      <inertia ixx="0.000057" ixy="0.0" ixz="0.0" iyy="0.000055" iyz="0.0" izz="0.000014"/>
+    </inertial>
+  </link>
+
+  <joint name="oakd_joint" type="fixed">
+    <parent link="oakd_camera_bracket"/>
+    <child link="oakd_link"/>
+    <origin xyz="0.0529 0 0.0925" rpy="0 0 0"/>
+  </joint>
+
+  <link name="oakd_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://turtlebot4_description/meshes/oakd_lite.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="0.061"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <joint name="oakd_optical_joint" type="fixed">
+    <parent link="oakd_link"/>
+    <child link="oakd_link_optical"/>
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+  </joint>
+  <link name="oakd_link_optical"/>
+
+  <gazebo reference="oakd_link">
+    <sensor name="oakd" type="rgbd_camera">
+      <pose>0 0 0 0 0 0</pose>
+      <update_rate>30.0</update_rate>
+      <always_on>true</always_on>
+      <visualize>true</visualize> <topic>camera</topic>
+      <gz_frame_id>oakd_link_optical</gz_frame_id>
+      <camera>
+        <horizontal_fov>1.25</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>10.0</far>
+        </clip>
+      </camera>
+    </sensor>
+  </gazebo>
+
+    <joint name="rplidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="rplidar_link"/>
+    <origin xyz="0.0393 0 0.0753" rpy="0 0 0"/>
+  </joint>
+
+  <link name="rplidar_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://turtlebot4_description/meshes/rplidar.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="0.17"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <gazebo reference="rplidar_link">
+    <sensor name="rplidar" type="gpu_lidar">
+      <pose>0 0 0 0 0 0</pose>
+      <update_rate>10.0</update_rate>
+      <visualize>true</visualize>
+      <always_on>true</always_on>
+      <topic>scan</topic>
+      <gz_frame_id>rplidar_link</gz_frame_id>
+      <lidar>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.15</min>
+          <max>12.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </lidar>
+    </sensor>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+      <right_joint>right_wheel_joint</right_joint>
+      <left_joint>left_wheel_joint</left_joint>
+      <wheel_separation>0.223</wheel_separation>
+      <wheel_radius>0.03575</wheel_radius>
+      <topic>cmd_vel</topic>
+    </plugin>
+
+    <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+      <odom_frame>odom</odom_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+      <odom_publish_frequency>50</odom_publish_frequency>
+      <odom_topic>/odom</odom_topic>
+      <tf_topic>/tf</tf_topic>
+      <dimensions>2</dimensions>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+      <topic>joint_states</topic>
+      <joint_name>left_wheel_joint</joint_name>
+      <joint_name>right_wheel_joint</joint_name>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+  </gazebo>
+
+</robot>
